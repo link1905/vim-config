@@ -1,16 +1,15 @@
--- remap leader key
+-- Remap leader key
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- Make line numbers default
 vim.opt.number = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = 'a'
+vim.opt.mouse = ''
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
@@ -63,7 +62,6 @@ vim.opt.confirm = true
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
-
 -- Clear highlights on search when pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
@@ -108,6 +106,7 @@ vim.keymap.set({'n', 'v', 'i'}, '<Up>', '<Nop>')
 vim.keymap.set({'n', 'v', 'i'}, '<Down>', '<Nop>')
 vim.keymap.set({'n', 'v', 'i'}, '<Left>', '<Nop>')
 vim.keymap.set({'n', 'v', 'i'}, '<Right>', '<Nop>')
+vim.keymap.set({'n', 'v'}, '<BS>', '<Nop>')
 
 -- Occurrence of character in line
 vim.keymap.set({'n', 'v'}, "'", ';')
@@ -133,8 +132,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     end,
 })
 
--- [[ Install `lazy.nvim` plugin manager ]]
---    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
+
+-- Install `lazy.nvim` plugin manager
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
@@ -142,5 +141,93 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 if vim.v.shell_error ~= 0 then
     error('Error cloning lazy.nvim:\n' .. out)
   end
-end ---@diagnostic disable-next-line: undefined-field
+end
 vim.opt.rtp:prepend(lazypath)
+
+local plugins = {
+    { 'tpope/vim-sleuth' },
+    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+    { -- Adds git related signs to the gutter, as well as utilities for managing changes
+        'lewis6991/gitsigns.nvim',
+        opts = {
+            signs = {
+                add = { text = '+' },
+                change = { text = '~' },
+                delete = { text = '_' },
+                topdelete = { text = '‾' },
+                changedelete = { text = '~' },
+            },
+        },
+    },
+    {
+        'nvim-telescope/telescope.nvim', tag = '0.1.8',
+        dependencies = { 
+            'nvim-lua/plenary.nvim',
+            { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font }
+        }
+    },
+    {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+    {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+        }
+    }
+}
+
+require("lazy").setup(plugins)
+
+-- Colorscheme
+require("catppuccin").setup({
+    flavour = "mocha",
+    integrations = {
+        telescope = {
+            enabled = true
+        }
+    }
+})
+
+-- Setup telescope actions
+local actions = require('telescope.actions')
+require('telescope').setup{
+  defaults = {
+    mappings = {
+      n = {
+        ["j"] = false,
+        ["k"] = actions.move_selection_previous, -- Up
+        ["l"] = actions.move_selection_next,     -- Down
+        ["<C-k>"] = actions.preview_scrolling_up,
+        ["<C-l>"] = actions.preview_scrolling_down,
+      },
+      i = {
+        ["<C-k>"] = actions.preview_scrolling_up,
+        ["<C-l>"] = actions.preview_scrolling_down,
+      },
+    },
+  }
+}
+-- Telescope search functions
+local builtin = require("telescope.builtin")
+vim.keymap.set('n', '<leader>f', builtin.builtin, { desc = '[F] Select Telescope' } )
+vim.keymap.set('n', '<C-g>', function()
+    builtin.live_grep {
+        prompt_title = 'Find text in files',
+    }
+end)
+vim.keymap.set('n', '<C-f>', builtin.find_files, { desc = "Find files" })
+
+-- Tree sitter config
+local config = require('nvim-treesitter.configs')
+config.setup({
+    ensure_installed = { "lua", "markdown", "markdown_inline", "json", "html", "css", "go" },
+    highlight = { enabled = true },
+    indent = { enabled  = true }
+})
+
+-- Neo-tree
+vim.keymap.set('n', '<leader>n', ':Neotree filesystem reveal left')
+
+vim.cmd.colorscheme "catppuccin"
