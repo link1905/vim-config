@@ -11,14 +11,14 @@ return {
             mappings = {
               n = {
                 ["j"] = false,
-                ["k"] = actions.move_selection_previous, -- Up
-                ["l"] = actions.move_selection_next,     -- Down
-                ["<C-k>"] = actions.preview_scrolling_up,
-                ["<C-l>"] = actions.preview_scrolling_down,
+                ["w"] = actions.move_selection_previous, -- Up
+                ["s"] = actions.move_selection_next,     -- Down
+                ["<C-w>"] = actions.preview_scrolling_up,
+                ["<C-d>"] = actions.preview_scrolling_down,
               },
               i = {
-                ["<C-k>"] = actions.preview_scrolling_up,
-                ["<C-l>"] = actions.preview_scrolling_down,
+                ["<C-w>"] = actions.preview_scrolling_up,
+                ["<C-d>"] = actions.preview_scrolling_down,
               },
             },
           }

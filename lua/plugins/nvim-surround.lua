@@ -4,6 +4,9 @@ return {
     event = "VeryLazy",
     config = function()
         require("nvim-surround").setup({
+            keymaps = {
+                delete = "Xs"
+            }
             -- Configuration here, or leave empty to use defaults
         })
     end
