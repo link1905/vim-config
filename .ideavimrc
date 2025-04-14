@@ -1,0 +1,118 @@
+" Leader
+let mapleader=" "
+
+" Plugins
+set NERDTree
+set surround
+set clipboard+=unnamed
+
+" Options
+set scrolloff=5
+set hlsearch
+set ignorecase
+set smartcase
+set incsearch
+set highlightedyank
+
+" NERDTree
+let g:NERDTreeMapActivateNode = 'l'
+let g:NERDTreeMapJumpParent = 'h'
+let g:NERDTreeMapJumpRoot = 'H'
+let g:NERDTreeFind = '<C-p>'
+
+" map black whole register
+noremap \ "_
+nnoremap yy yy
+
+" Turn off highlight and remove cursors
+nnoremap <Esc> :nohlsearch<CR>:action EditorEscape<CR>
+
+" Add a space above/below
+nnoremap <space>] mzo<Esc>`z
+nnoremap d] mzjdd`z
+nnoremap <space>[ mzO<Esc>`z
+nnoremap d[ mzkdd`z
+
+" Redo
+noremap U <C-r>
+" Paste without overwriting
+xnoremap p P
+" History commands
+cnoremap <C-j> <Down>
+cnoremap <C-k> <Up>
+
+" Map vim actions
+noremap { ?{<CR>
+noremap } /}<CR>
+noremap ( ?(<CR>
+noremap ) ?)<CR>
+
+" Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+" Refactor
+map <C-.> <Action>(Refactorings.QuickListPopupAction)
+map <C-f> <Action>(ReformatCode)
+map <C-r> <Action>(RenameElement)
+
+" Multi caret
+map <C-S-j> <Action>(EditorCloneCaretBelow)
+map <C-S-k> <Action>(EditorCloneCaretAbove)
+
+" Extend selection
+map ' <Action>(EditorSelectWord)
+map " <Action>(EditorUnSelectWord)
+
+
+" Toggle
+map <C-b> <Action>(ToggleLineBreakpoint)
+map B <Action>(EditBreakpoint)
+map m <Action>(ToggleBookmark)
+map M <Action>(ToggleBookmarkWithMnemonic)
+" Comment
+map <C-c> <Action>(CommentByLineComment)
+
+" Goto
+map gd <Action>(GotoDeclaration)
+map gi <Action>(GotoImplementation)
+map gt <Action>(GotoTypeDeclaration)
+map gs <Action>(GotoSuperMethod)
+map gp <Action>(ReSharperGotoContainingDeclaration)
+map gb <Action>(ShowNavBar)
+
+" Previous/next actions 
+map K <Action>(ShowHoverInfo)
+map J <Action>(EditorDuplicate)
+map H <Action>(ScrollPane-scrollLeft)
+map L <Action>(ScrollPane-scrollRight)
+map <C-;> <Action>(GotoNextBookmark)
+map <C-,> <Action>(GotoPreviousBookmark)
+map <C-j> <Action>(MethodDown)
+map <C-k> <Action>(MethodUp)
+map [e <Action>(GotoPreviousError)
+map ]e <Action>(GotoNextError)
+
+" Move lines
+map <A-j> <Action>(MoveLineDown)
+map <A-k> <Action>(MoveLineUp) 
+map <C-[> <Action>(CollapseRegion)
+map <C-]> <Action>(ExpandRegion)
+
+" Tabs
+map <C-p> <Action>(PinActiveEditorTab)
+map qq <Action>(CloseContent)
+map qo <Action>(CloseAllEditorsButActive)
+map qo <Action>(CloseAllEditorsButActive)
+map qa <Action>(CloseAllEditors)
+map ql <Action>(CloseAllToTheRight)
+map qh <Action>(CloseAllToTheLeft)
+map <C-h> <Action>(PreviousTab)
+map <C-l> <Action>(NextTab)
+map <A-S-h> <Action>(ResizeToolWindowLeft)
+map <A-S-l> <Action>(ResizeToolWindowRight)
+map <A-S-j> <Action>(ResizeToolWindowDown)
+map <A-S-k> <Action>(ResizeToolWindowUp)
+
+map <C-s> <Action>(SelectInProjectView)
+" Yank paths
+nnoremap yp :action CopyAbsolutePath<CR>
+nnoremap yf :action CopyFileNameCR>
+nnoremap yc :action CopyContentRootPathCR>
