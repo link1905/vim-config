@@ -111,8 +111,7 @@ map <A-S-l> <Action>(ResizeToolWindowRight)
 map <A-S-j> <Action>(ResizeToolWindowDown)
 map <A-S-k> <Action>(ResizeToolWindowUp)
 
-map <C-s> <Action>(SelectInProjectView)
 " Yank paths
 nnoremap yp :action CopyAbsolutePath<CR>
-nnoremap yf :action CopyFileNameCR>
-nnoremap yc :action CopyContentRootPathCR>
+nnoremap yf :action CopyFileName<CR>
+nnoremap yc :action CopyContentRootPath<CR>
