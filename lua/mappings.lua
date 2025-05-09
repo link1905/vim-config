@@ -20,7 +20,7 @@ keymap("n", "U", "<C-r>", opts)
 -- Jump to problems
 keymap("n", "[e", "<cmd>lua require('vscode').action('editor.action.marker.prevInFiles')<CR>", opts)
 keymap("n", "]e", "<cmd>lua require('vscode').action('editor.action.marker.nextInFiles)<CR>", opts)
-keymap("n", "J", "<cmd>lua require('vscode').action('editor.action.copyLinesDownAction')<CR>", opts)
+keymap({"n", "v"}, "J", "<cmd>lua require('vscode').action('editor.action.copyLinesDownAction')<CR>", opts)
 
 -- Bookmarks
 keymap({"n", "v"}, "m", "<cmd>lua require('vscode').action('bookmarks.toggle')<CR>", opts)

@@ -1,0 +1,63 @@
+// Zed keymap
+
+//
+
+// For information on binding keys, see the Zed
+
+// documentation: https://zed.dev/docs/key-bindings
+
+//
+
+// To see the default key bindings run `zed: open default keymap`
+
+// from the command palette.
+
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-g": "file_finder::Toggle"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == visual",
+    "bindings": {
+      "'": "vim::SelectLargerSyntaxNode",
+      "\"": "vim::SelectSmallerSyntaxNode",
+      "J": "editor::DuplicateLineDown",
+      ">": "editor::Indent",
+      "<": "editor::Outdent"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "[f": "vim::PreviousMethodStart",
+      "[F": "vim::PreviousMethodEnd",
+      "]f": "vim::NextMethodStart",
+      "]F": "vim::NextMethodEnd",
+      "J": "editor::DuplicateLineDown",
+      "K": "editor::Hover",
+      "alt-j": "editor::MoveLineDown",
+      "alt-k": "editor::MoveLineUp",
+      "U": "vim::Redo",
+      "gt": "editor::GoToTypeDefinition",
+      "gi": "editor::GoToImplementation",
+      "ctrl-[": "editor::ToggleFold"
+    }
+  },
+  {
+    "context": "Editor && (showing_completions || showing_code_action) && vim_mode == insert",
+    "bindings": {
+      "ctrl-j": "editor::ContextMenuNext",
+      "ctrl-k": "editor::ContextMenuPrevious"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-h": "pane::ActivatePreviousItem",
+      "ctrl-l": "pane::ActivateNextItem"
+    }
+  }
+]
