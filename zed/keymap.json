@@ -40,7 +40,9 @@
       "ctrl-n": "workspace::NewTerminal",
       "ctrl-1": "terminal_panel::ToggleFocus",
       "ctrl-[": ["terminal::SendKeystroke", "up"],
-      "ctrl-]": ["terminal::SendKeystroke", "down"]
+      "ctrl-]": ["terminal::SendKeystroke", "down"],
+      "ctrl-h": "pane::ActivatePreviousItem",
+      "ctrl-l": "pane::ActivateNextItem"
     }
   },
   {
@@ -112,6 +114,7 @@
   {
     "context": "Editor",
     "bindings": {
+      "ctrl-p": "pane::TogglePinTab",
       "ctrl-w ctrl-w": "pane::CloseActiveItem",
       "ctrl-w ctrl-o": "pane::CloseInactiveItems",
       "ctrl-w ctrl-\\": "pane::CloseAllItems",
@@ -132,7 +135,7 @@
     }
   },
   {
-    "context": "ProjectPanel",
+    "context": "ProjectPanel && not_editing",
     "bindings": {
       "ctrl-H": "workspace::ActivatePaneLeft",
       "ctrl-L": "workspace::ActivatePaneRight",
